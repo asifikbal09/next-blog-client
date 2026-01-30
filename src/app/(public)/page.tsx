@@ -6,11 +6,11 @@ export default async function HomePage() {
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post`,{
     next:{
-      revalidate:30
+      tags:["blogs"]
     }
   })
   const {data:blogs} = await res.json()
-  console.log(blogs)
+  // console.log(blogs)
 
   return (
     <div>
