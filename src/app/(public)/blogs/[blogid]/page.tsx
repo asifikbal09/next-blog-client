@@ -1,4 +1,5 @@
 import BlogDetailsCard from "@/components/modules/Blogs/BlogDetailsCard";
+import { getPostById } from "@/services/PostService";
 import React from "react";
 
 export const generateMetadata = async ({
@@ -7,8 +8,8 @@ export const generateMetadata = async ({
   params: Promise<{ blogid: string }>;
 }) => {
 const { blogid } = await params;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post/${blogid}`);
-  const blog= await res.json();
+  
+  const blog= await getPostById(Number(blogid));
     return{
         title: blog.title,
         description: blog.content.slice(0,150)
@@ -21,8 +22,7 @@ const BlogDetailsPage = async ({
   params: Promise<{ blogid: string }>;
 }) => {
   const { blogid } = await params;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post/${blogid}`);
-  const blog= await res.json();
+  const blog= await getPostById(Number(blogid));
 
   return (
     <div className="py-30 px-4 max-w-7xl mx-auto">
